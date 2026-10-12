@@ -61,11 +61,11 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		setResizable(false);
 		getContentPane().setLayout(null);
 
-		// Crear barra de menú
+		// Crear barra de menï¿½
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		// Menú: Mantenimiento
+		// Menï¿½: Mantenimiento
 		JMenu mnMantenimiento = new JMenu("Mantenimiento");
 		menuBar.add(mnMantenimiento);
 
@@ -77,11 +77,11 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		mntmCursos.addActionListener(this);
 		mnMantenimiento.add(mntmCursos);
 
-		// Menú: Registro
+		// Menï¿½: Registro
 		JMenu mnRegistro = new JMenu("Registro");
 		menuBar.add(mnRegistro);
 
-		mntmMatricula = new JMenuItem("Matrícula");
+		mntmMatricula = new JMenuItem("Matrï¿½cula");
 		mntmMatricula.addActionListener(this);
 		mnRegistro.add(mntmMatricula);
 
@@ -89,7 +89,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		mntmRetiro.addActionListener(this);
 		mnRegistro.add(mntmRetiro);
 
-		// Menú: Consulta
+		// Menï¿½: Consulta
 		JMenu mnConsulta = new JMenu("Consulta");
 		menuBar.add(mnConsulta);
 
@@ -97,11 +97,11 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		mntmConsAlumno.addActionListener(this);
 		mnConsulta.add(mntmConsAlumno);
 
-		mntmConsMatricula = new JMenuItem("Matrículas y Retiros");
+		mntmConsMatricula = new JMenuItem("Matrï¿½culas y Retiros");
 		mntmConsMatricula.addActionListener(this);
 		mnConsulta.add(mntmConsMatricula);
 
-		// Menú: Reporte
+		// Menï¿½: Reporte
 		JMenu mnReporte = new JMenu("Reporte");
 		menuBar.add(mnReporte);
 
@@ -117,7 +117,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		mntmRepCurso.addActionListener(this);
 		mnReporte.add(mntmRepCurso);
 
-		// Menú: Ayuda
+		// Menï¿½: Ayuda
 		JMenu mnAyuda = new JMenu("Ayuda");
 		menuBar.add(mnAyuda);
 
@@ -125,7 +125,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		mntmAyuda.addActionListener(this);
 		mnAyuda.add(mntmAyuda);
 
-		// Panel principal vacío
+		// Panel principal vacï¿½o
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(60, 179, 113));
 		setContentPane(contentPane);
@@ -148,6 +148,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	    cursos.cargarCursos();
 	    matriculas.cargarMatriculas();
 	    retiros.cargarRetiros();
+	    System.out.println("Comentario nuevo");
 	}
 
 
