@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+
 import java.awt.EventQueue;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,14 +12,21 @@ import objetos.Alumno;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import Conexion.Conexion;
+import java.sql.*;
+import java.io.File;
+import java.awt.image.BufferedImage;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.*;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
+import org.apache.pdfbox.rendering.PDFRenderer;
 
 public class ReportPendientes extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextArea txtReporte;
 	private JButton btnMostrar;
-	private JButton btnLimpiar;
-	private JButton btnCerrar;
 	private JLabel lblNewLabel;
 
 	/**
@@ -39,9 +47,10 @@ public class ReportPendientes extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public ReportPendientes() {
-		setTitle("Reporte: Alumnos con Matrícula Pendiente");
+		setTitle("Reporte: Alumnos con Matrï¿½cula Pendiente");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 700, 500);
+		setLocationRelativeTo(null);
 		setResizable(false);
 
 		contentPane = new JPanel();
@@ -50,13 +59,13 @@ public class ReportPendientes extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 
-		// Título
-		JLabel lblTitulo = new JLabel("ALUMNOS CON MATRÍCULA PENDIENTE");
+		// Tï¿½tulo
+		JLabel lblTitulo = new JLabel("ALUMNOS CON MATRï¿½CULA PENDIENTE");
 		lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
 		lblTitulo.setBounds(54, 11, 500, 30);
 		contentPane.add(lblTitulo);
 
-		// Área de reporte
+		// ï¿½rea de reporte
 		txtReporte = new JTextArea();
 		txtReporte.setForeground(new Color(0, 0, 255));
 		txtReporte.setBackground(new Color(255, 255, 224));
@@ -66,26 +75,12 @@ public class ReportPendientes extends JFrame implements ActionListener {
 		scrollPane.setBounds(30, 60, 460, 330);
 		contentPane.add(scrollPane);
 
-		// Botón: Mostrar
-		btnMostrar = new JButton("Mostrar");
+		// Botï¿½n: Mostrar
+		btnMostrar = new JButton("Mostrar PDF");
 		btnMostrar.setBackground(new Color(102, 205, 170));
 		btnMostrar.addActionListener(this);
-		btnMostrar.setBounds(30, 408, 120, 30);
+		btnMostrar.setBounds(201, 405, 120, 30); 
 		contentPane.add(btnMostrar);
-
-		// Botón: Limpiar
-		btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBackground(new Color(102, 205, 170));
-		btnLimpiar.addActionListener(this);
-		btnLimpiar.setBounds(200, 408, 120, 30);
-		contentPane.add(btnLimpiar);
-
-		// Botón: Cerrar
-		btnCerrar = new JButton("Cerrar");
-		btnCerrar.setBackground(new Color(250, 128, 114));
-		btnCerrar.addActionListener(this);
-		btnCerrar.setBounds(370, 408, 120, 30);
-		contentPane.add(btnCerrar);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(ReportPendientes.class.getResource("/imagenes/insigna.jpg")));
@@ -93,46 +88,132 @@ public class ReportPendientes extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel);
 	}
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnCerrar) {
-			actionPerformedBtnCerrar(e);
-		}
-		if (e.getSource() == btnLimpiar) {
-			actionPerformedBtnLimpiar(e);
-		}
-		if (e.getSource() == btnMostrar) {
-			actionPerformedBtnMostrar(e);
-		}
+		  if (e.getSource() == btnMostrar) {
+		        generarPDF();
+		    }
 	}
-	protected void actionPerformedBtnMostrar(ActionEvent e) {
-	    StringBuilder sb = new StringBuilder();
-	    sb.append("ALUMNOS CON MATRÍCULA PENDIENTE\n\n");
-	    boolean hayPendientes = false;
-	    for (int i = 0; i < MenuPrincipal.alumnos.tamagno(); i++) {
-	        Alumno a = MenuPrincipal.alumnos.obtener(i);
-	        if (a.getEstado() == 0) {
-	            hayPendientes = true;
-	            sb.append("Código: ").append(a.getCodAlumno()).append("\n");
-	            sb.append("Nombre: ").append(a.getNombres()).append(" ").append(a.getApellidos()).append("\n");
-	            sb.append("DNI: ").append(a.getDni()).append("\n");
-	            sb.append("Edad: ").append(a.getEdad()).append("\n");
-	            sb.append("Celular: ").append(a.getCelular()).append("\n");
-	            sb.append("Estado: REGISTRADO (Pendiente)\n");
-	            sb.append("-----------------------------------\n");
-	        }
-	    }
+	
+   
+private void generarPDF() {
 
-	    if (!hayPendientes) {
-	        sb.append("No hay alumnos con matrícula pendiente.\n");
-	    }
+	String sql = "SELECT codAlumno, nombres, apellidos, dni, estado "
+	        + "FROM alumno WHERE estado = 'Registrado' "
+	        + "ORDER BY apellidos";
 
-	    txtReporte.setText(sb.toString());
-	}
-	protected void actionPerformedBtnLimpiar(ActionEvent e) {
-		txtReporte.setText("");
-	}
-	protected void actionPerformedBtnCerrar(ActionEvent e) {
-		dispose(); // Cierra la ventana
+    File archivo = new File(System.getProperty("java.io.tmpdir"),
+            "Reporte_Pendientes_" + System.currentTimeMillis() + ".pdf");
 
-	}
+    try (Connection cn = Conexion.conectar();
+         PreparedStatement ps = cn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery();
+         PDDocument pdf = new PDDocument()) {
+
+        PDPage pagina = new PDPage(PDRectangle.A4);
+        pdf.addPage(pagina);
+
+        PDType0Font normal = PDType0Font.load(pdf,
+                new File("C:/Windows/Fonts/arial.ttf"));
+        PDType0Font negrita = PDType0Font.load(pdf,
+                new File("C:/Windows/Fonts/arialbd.ttf"));
+
+        PDPageContentStream c = new PDPageContentStream(pdf, pagina);
+
+        String titulo = "ALUMNOS CON MATRÃCULA PENDIENTE";
+        float ancho = negrita.getStringWidth(titulo) / 1000f * 14;
+
+        c.beginText();
+        c.setFont(negrita, 14);
+        c.newLineAtOffset((595 - ancho) / 2, 770);
+        c.showText(titulo);
+        c.endText();
+
+        // Encabezado azul
+        c.setNonStrokingColor(new Color(0, 65, 95));
+        c.addRect(50, 700, 495, 30);
+        c.fill();
+
+        c.setNonStrokingColor(Color.WHITE);
+        escribir(c, negrita, 10, 60, 710, "CÃ³digo");
+        escribir(c, negrita, 10, 140, 710, "Alumno");
+        escribir(c, negrita, 10, 370, 710, "DNI");
+        escribir(c, negrita, 10, 455, 710, "Estado");
+
+        float y = 700;
+        c.setNonStrokingColor(Color.BLACK);
+
+        while (rs.next() && y > 60) {
+
+            String alumno = rs.getString("nombres") + " "
+                    + rs.getString("apellidos");
+
+            c.setStrokingColor(Color.GRAY);
+            c.addRect(50, y - 30, 495, 30);
+            c.stroke();
+
+            for (int x : new int[]{130, 360, 445}) {
+                c.moveTo(x, y);
+                c.lineTo(x, y - 30);
+            }
+            c.stroke();
+
+            escribir(c, normal, 9, 60, y - 19,
+                    rs.getString("codAlumno"));
+            escribir(c, normal, 9, 140, y - 19,
+                    ajustar(alumno, 35));
+            escribir(c, normal, 9, 370, y - 19,
+                    rs.getString("dni"));
+            escribir(c, normal, 9, 455, y - 19,
+                    rs.getString("estado"));
+
+            y -= 30;
+        }
+
+        c.close();
+        pdf.save(archivo);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        return;
+    }
+
+    mostrarPDF(archivo);
+}
+
+
+private void escribir(PDPageContentStream c, PDType0Font fuente,
+        int tamaÃ±o, float x, float y, String texto) throws Exception {
+
+    c.beginText();
+    c.setFont(fuente, tamaÃ±o);
+    c.newLineAtOffset(x, y);
+    c.showText(texto == null ? "" : texto.replace("\uFFFD", ""));
+    c.endText();
+}
+
+private String ajustar(String texto, int maximo) {
+    if (texto == null) return "";
+    return texto.length() > maximo
+            ? texto.substring(0, maximo - 3) + "..."
+            : texto;
+}
+
+private void mostrarPDF(File archivo) {
+    try (PDDocument pdf = Loader.loadPDF(archivo)) {
+
+        PDFRenderer renderer = new PDFRenderer(pdf);
+        BufferedImage imagen = renderer.renderImageWithDPI(0, 85);
+
+        JFrame ventana = new JFrame("Alumnos con MatrÃ­cula Pendiente");
+        ventana.add(new JScrollPane(new JLabel(new ImageIcon(imagen))));
+        ventana.setSize(900, 750);
+        ventana.setLocationRelativeTo(this);
+        ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ventana.setVisible(true);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    }
+}
+
 }
 

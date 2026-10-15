@@ -58,6 +58,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		setTitle("Sistema de Matr\u00EDcula - CODEV STUDIO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 500);
+		setLocationRelativeTo(null);
 		setResizable(false);
 		getContentPane().setLayout(null);
 
@@ -148,7 +149,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	    cursos.cargarCursos();
 	    matriculas.cargarMatriculas();
 	    retiros.cargarRetiros();
-	    System.out.println("Comentario nuevo");
+	   
 	}
 
 

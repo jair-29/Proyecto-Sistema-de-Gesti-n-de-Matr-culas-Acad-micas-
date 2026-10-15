@@ -111,7 +111,7 @@ public class ArregloAlumnos {
 	}
 
 	private int ObtenerEstado(String estado) {
-		if (estado.equalsIgnoreCase("Activo"))
+		if (estado.equalsIgnoreCase("Registrado"))
 			return 0;
 		if (estado.equalsIgnoreCase("Matriculado"))
 			return 1;
@@ -122,7 +122,7 @@ public class ArregloAlumnos {
 
 	private String ObtenerTexto(int estado) {
 		if (estado == 0)
-			return "Activo";
+			return "Registrado";
 		if (estado == 1)
 			return "Matriculado";
 		if (estado == 2)
