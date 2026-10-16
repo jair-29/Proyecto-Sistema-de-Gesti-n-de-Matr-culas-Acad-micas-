@@ -8,5 +8,26 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/mysql-connector-j-26.7.0/mysql-connector-j-26.7.0/mysql-connector-j-26.7.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/pdfbox-app-3.0.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/commons-logging-1.3.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/openpdf-1.3.43.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/jasperreports-pdf-7.0.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/jasperreports-7.0.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/commons-beanutils-1.9.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/commons-digester-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/groovy-all-2.4.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/itextpdf-5.5.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/itext-pdfa-5.5.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/jfreechart-1.0.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/poi-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/poi-excelant-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/poi-ooxml-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/poi-ooxml-schemas-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/poi-scratchpad-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ka_w3/Downloads/Librerias jars/Librerias jars/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

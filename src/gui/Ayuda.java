@@ -1,30 +1,38 @@
+
 package gui;
 
 import java.awt.EventQueue;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Toolkit;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 public class Ayuda extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
 	private JTextArea txtAbout;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(() -> {
+
 			try {
+
 				Ayuda frame = new Ayuda();
 				frame.setVisible(true);
+
 			} catch (Exception e) {
+
 				e.printStackTrace();
 			}
 		});
@@ -34,51 +42,94 @@ public class Ayuda extends JFrame {
 	 * Create the frame.
 	 */
 	public Ayuda() {
+
+		// ICONO DEL PROYECTO
+		java.net.URL icono = Ayuda.class.getResource("/imagenes/ICONO.LOGO.png");
+
+		if (icono != null) {
+			setIconImage(Toolkit.getDefaultToolkit().getImage(icono));
+		}
+
 		setTitle("Acerca del Proyecto");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		setResizable(false);
+		setLocationRelativeTo(null);
 
+		// PANEL PRINCIPAL
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(102, 205, 170));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setContentPane(contentPane);
 
-		// T�tulo
-		JLabel lblTitulo = new JLabel("INFORMACI�N DEL PROYECTO");
-		lblTitulo.setBackground(new Color(0, 100, 0));
-		lblTitulo.setBounds(119, 4, 310, 30);
-		lblTitulo.setForeground(new Color(47, 79, 79));
+		// TITULO
+		JLabel lblTitulo = new JLabel("INFORMACIÓN DEL PROYECTO");
+
+		lblTitulo.setBounds(119, 14, 350, 30);
+		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setFont(new Font("Arial", Font.BOLD, 19));
+
 		contentPane.add(lblTitulo);
-		
+
+		// AREA DE INFORMACION
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(22, 55, 390, 291);
 		contentPane.add(scrollPane);
-		
+
 		txtAbout = new JTextArea();
+
 		txtAbout.setEditable(false);
 		txtAbout.setLineWrap(true);
+		txtAbout.setWrapStyleWord(true);
+
 		txtAbout.setFont(new Font("Monospaced", Font.BOLD, 14));
-		txtAbout.setForeground(new Color(0, 0, 0));
-		txtAbout.setBackground(new Color(102, 205, 170));
-		txtAbout.setText("Integrantes del Grupo:\r\n1. YANCARLOS CALDERON ESPINOLA\r\n2. EDWIN MIGUEL VERGARAY VILLAFANA\r\n3. JESENIA CATHERINE COTRINA GUTIERREZ\r\n4. YADHIRA SALOME HAYASHI AMORETTI\r\n\r\nEmpresa Desarrolladora: CODEV STUDIO\r\nVersi\u00F3n del Proyecto: 1.0\r\nSemestre Acad\u00E9mico: 2025-II\r\n\r\nEste sistema fue desarrollado como parte\r\ndel curso Algoritmos y Estructura de Datos\r\ndel instituto Cibertec.");
+
+		txtAbout.setForeground(Color.BLACK);
+		txtAbout.setBackground(Color.WHITE);
+
+		txtAbout.setMargin(new java.awt.Insets(10, 10, 10, 10));
+
+		// INFORMACION ACTUALIZADA DEL PROYECTO
+		txtAbout.setText("INTEGRANTES DEL GRUPO:\n\n" + "1. JAIR CHUQUIHUACCHA SOLANO\n\n"
+				+ "2. EDWIN MIGUEL VERGARAY VILLAFANA\n\n" + "3. CARLOS ALBERTO MANUEL ARIAS RAMIREZ\n\n"
+				+ "4. JOE ANDRE CASTILLO MIRAVAL\n\n" + "--------------------------------\n\n" + "PROYECTO:\n"
+				+ "Sistema de Gestión de Matrículas Académicas\n\n" + "VERSIÓN DEL PROYECTO:\n" + "1.4\n\n"
+				+ "SEMESTRE ACADÉMICO:\n" + "2026-II\n\n" + "CURSO:\n" + "Experiencia Formativa en Situación "
+				+ "Real de Trabajo II\n\n" + "INSTITUCIÓN:\n" + "Instituto Cibertec\n\n" + "DESCRIPCIÓN:\n"
+				+ "Sistema desarrollado para gestionar " + "alumnos, cursos, matrículas y retiros, "
+				+ "permitiendo realizar consultas y " + "generar reportes académicos.");
+
+		txtAbout.setCaretPosition(0);
+
+		// CORRECCION DEL SCROLL
 		scrollPane.setViewportView(txtAbout);
-		
-		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(Ayuda.class.getResource("/imagenes/logoAyuda.jpg")));
-		lblNewLabel.setBounds(446, 114, 101, 150);
+
+		// FONDO DEL PROYECTO COMPRIMIDO
+		lblNewLabel = new JLabel("");
+
+		java.net.URL fondo = Ayuda.class.getResource("/imagenes/Fondo.Proyecto.jpg");
+
+		if (fondo != null) {
+			lblNewLabel.setIcon(new ImageIcon(fondo));
+		}
+
+		lblNewLabel.setBounds(0, 0, 584, 361);
 		contentPane.add(lblNewLabel);
-		
+
+		// LOGO DE CIBERTEC
 		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(Ayuda.class.getResource("/imagenes/logocibertec.jpg")));
+
+		java.net.URL logo = Ayuda.class.getResource("/imagenes/logocibertec.jpg");
+
+		if (logo != null) {
+			lblNewLabel_1.setIcon(new ImageIcon(logo));
+		}
+
 		lblNewLabel_1.setBounds(10, 4, 60, 40);
 		contentPane.add(lblNewLabel_1);
-		
-		lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(Ayuda.class.getResource("/imagenes/insignia_mini.jpg")));
-		lblNewLabel_2.setBounds(487, 11, 60, 50);
-		contentPane.add(lblNewLabel_2);
+
+		// MANTENER EL LOGO DELANTE DEL FONDO
+		contentPane.setComponentZOrder(lblNewLabel_1, 0);
 	}
 }

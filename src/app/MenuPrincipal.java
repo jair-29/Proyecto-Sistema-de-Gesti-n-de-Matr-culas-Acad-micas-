@@ -1,10 +1,14 @@
+
 package app;
 
 import java.awt.EventQueue;
-import javax.swing.*;
-import java.awt.event.*;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
 
 import gui.MantAlumno;
 import gui.MantCursos;
@@ -23,156 +27,218 @@ import arreglos.ArregloMatriculas;
 import arreglos.ArregloRetiros;
 
 public class MenuPrincipal extends JFrame implements ActionListener {
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JMenuItem mntmAlumnos, mntmCursos;
-	private JMenuItem mntmMatricula, mntmRetiro;
-	private JMenuItem mntmConsAlumno, mntmConsMatricula;
-	private JMenuItem mntmRepPendiente, mntmRepVigente, mntmRepCurso;
-	private JMenuItem mntmAyuda;
+
+    private static final long serialVersionUID = 1L;
+
+    private JPanel contentPane;
+
+    private JMenuItem mntmAlumnos, mntmCursos;
+    private JMenuItem mntmMatricula, mntmRetiro;
+    private JMenuItem mntmConsAlumno, mntmConsMatricula;
+    private JMenuItem mntmRepPendiente, mntmRepVigente, mntmRepCurso;
+    private JMenuItem mntmAyuda;
+
     private JLabel lblLogoPrincipal;
     private JLabel lblColegio;
-    
+
+    // COLECCIONES ORIGINALES DEL PROYECTO
     public static ArregloAlumnos alumnos = new ArregloAlumnos();
     public static ArregloCursos cursos = new ArregloCursos();
     public static ArregloMatriculas matriculas = new ArregloMatriculas();
     public static ArregloRetiros retiros = new ArregloRetiros();
 
-    
-	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> {
-			try {
-				MenuPrincipal frame = new MenuPrincipal();
-				frame.setVisible(true);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-	}
+    public static void main(String[] args) {
 
-	/**
-	 * Create the frame.
-	 */
-	public MenuPrincipal() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/imagenes/logo.png")));
-		setTitle("Sistema de Matr\u00EDcula - CODEV STUDIO");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 500);
-		setLocationRelativeTo(null);
-		setResizable(false);
-		getContentPane().setLayout(null);
+        EventQueue.invokeLater(() -> {
+            try {
+                MenuPrincipal frame = new MenuPrincipal();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-		// Crear barra de men�
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+    // CONSTRUCTOR
+    public MenuPrincipal() {
 
-		// Men�: Mantenimiento
-		JMenu mnMantenimiento = new JMenu("Mantenimiento");
-		menuBar.add(mnMantenimiento);
+        setTitle("Sistema de Matrícula ");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 750, 500);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        
+        // ICONO DE LA VENTANA
+        java.net.URL icono = MenuPrincipal.class.getResource(
+                "/imagenes/ICONO.LOGO.png");
 
-		mntmAlumnos = new JMenuItem("Alumnos");
-		mntmAlumnos.addActionListener(this);
-		mnMantenimiento.add(mntmAlumnos);
+        if (icono != null) {
+            setIconImage(Toolkit.getDefaultToolkit().getImage(icono));
+        }
 
-		mntmCursos = new JMenuItem("Cursos");
-		mntmCursos.addActionListener(this);
-		mnMantenimiento.add(mntmCursos);
+        // BARRA DE MENÚ
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.setBackground(new Color(0, 128, 192));
+        menuBar.setBorderPainted(false);
+        setJMenuBar(menuBar);
 
-		// Men�: Registro
-		JMenu mnRegistro = new JMenu("Registro");
-		menuBar.add(mnRegistro);
+        // MENÚ MANTENIMIENTO
+        JMenu mnMantenimiento = new JMenu("Mantenimiento");
+        configurarMenu(mnMantenimiento);
+        menuBar.add(mnMantenimiento);
 
-		mntmMatricula = new JMenuItem("Matr�cula");
-		mntmMatricula.addActionListener(this);
-		mnRegistro.add(mntmMatricula);
+        mntmAlumnos = new JMenuItem("Alumnos");
+        configurarItem(mntmAlumnos);
+        mnMantenimiento.add(mntmAlumnos);
 
-		mntmRetiro = new JMenuItem("Retiro");
-		mntmRetiro.addActionListener(this);
-		mnRegistro.add(mntmRetiro);
+        mntmCursos = new JMenuItem("Cursos");
+        configurarItem(mntmCursos);
+        mnMantenimiento.add(mntmCursos);
 
-		// Men�: Consulta
-		JMenu mnConsulta = new JMenu("Consulta");
-		menuBar.add(mnConsulta);
+        // MENÚ REGISTRO
+        JMenu mnRegistro = new JMenu("Registro");
+        configurarMenu(mnRegistro);
+        menuBar.add(mnRegistro);
 
-		mntmConsAlumno = new JMenuItem("Alumnos y Cursos");
-		mntmConsAlumno.addActionListener(this);
-		mnConsulta.add(mntmConsAlumno);
+        mntmMatricula = new JMenuItem("Matrícula");
+        configurarItem(mntmMatricula);
+        mnRegistro.add(mntmMatricula);
 
-		mntmConsMatricula = new JMenuItem("Matr�culas y Retiros");
-		mntmConsMatricula.addActionListener(this);
-		mnConsulta.add(mntmConsMatricula);
+        mntmRetiro = new JMenuItem("Retiro");
+        configurarItem(mntmRetiro);
+        mnRegistro.add(mntmRetiro);
 
-		// Men�: Reporte
-		JMenu mnReporte = new JMenu("Reporte");
-		menuBar.add(mnReporte);
+        // MENÚ CONSULTA
+        JMenu mnConsulta = new JMenu("Consulta");
+        configurarMenu(mnConsulta);
+        menuBar.add(mnConsulta);
 
-		mntmRepPendiente = new JMenuItem("Pendientes");
-		mntmRepPendiente.addActionListener(this);
-		mnReporte.add(mntmRepPendiente);
+        mntmConsAlumno = new JMenuItem("Alumnos y Cursos");
+        configurarItem(mntmConsAlumno);
+        mnConsulta.add(mntmConsAlumno);
 
-		mntmRepVigente = new JMenuItem("Vigentes");
-		mntmRepVigente.addActionListener(this);
-		mnReporte.add(mntmRepVigente);
+        mntmConsMatricula = new JMenuItem("Matrículas y Retiros");
+        configurarItem(mntmConsMatricula);
+        mnConsulta.add(mntmConsMatricula);
 
-		mntmRepCurso = new JMenuItem("Por Curso");
-		mntmRepCurso.addActionListener(this);
-		mnReporte.add(mntmRepCurso);
+        // MENÚ REPORTE
+        JMenu mnReporte = new JMenu("Reporte");
+        configurarMenu(mnReporte);
+        menuBar.add(mnReporte);
 
-		// Men�: Ayuda
-		JMenu mnAyuda = new JMenu("Ayuda");
-		menuBar.add(mnAyuda);
+        mntmRepPendiente = new JMenuItem("Pendientes");
+        configurarItem(mntmRepPendiente);
+        mnReporte.add(mntmRepPendiente);
 
-		mntmAyuda = new JMenuItem("Acerca de...");
-		mntmAyuda.addActionListener(this);
-		mnAyuda.add(mntmAyuda);
+        mntmRepVigente = new JMenuItem("Vigentes");
+        configurarItem(mntmRepVigente);
+        mnReporte.add(mntmRepVigente);
 
-		// Panel principal vac�o
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(60, 179, 113));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		lblLogoPrincipal = new JLabel("");
-		lblLogoPrincipal.setIcon(new ImageIcon(getClass().getResource("/imagenes/logoPrincipal.jpeg")));
-		lblLogoPrincipal.setBounds(17, 15, 700, 411);
-		lblLogoPrincipal.setOpaque(true);
-		contentPane.add(lblLogoPrincipal);
-		
-		lblColegio = new JLabel("");
-		lblColegio.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/imagenes/logoColegio.png")));
-		lblColegio.setBounds(230, 50, 312, 63);
-		contentPane.add(lblColegio);
-		contentPane.setComponentZOrder(lblColegio, 0);
-		setVisible(true);
-	    
-	    alumnos.cargarAlumnos();
-	    cursos.cargarCursos();
-	    matriculas.cargarMatriculas();
-	    retiros.cargarRetiros();
-	   
-	}
+        mntmRepCurso = new JMenuItem("Por Curso");
+        configurarItem(mntmRepCurso);
+        mnReporte.add(mntmRepCurso);
 
+        // MENÚ AYUDA
+        JMenu mnAyuda = new JMenu("Ayuda");
+        configurarMenu(mnAyuda);
+        menuBar.add(mnAyuda);
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == mntmAlumnos)
-			new MantAlumno(alumnos).setVisible(true);
-		if (e.getSource() == mntmCursos)
-			new MantCursos(cursos).setVisible(true);
-		if (e.getSource() == mntmMatricula)
-			new RegisMatricula(matriculas, alumnos, cursos).setVisible(true);
-		if (e.getSource() == mntmRetiro)
-			new RegisRetiro(retiros,matriculas, alumnos,cursos).setVisible(true);
-		if (e.getSource() == mntmConsAlumno)
-			new ConsAlumno(alumnos,cursos,matriculas).setVisible(true);
-		if (e.getSource() == mntmConsMatricula)
-			new ConsMatricula(matriculas, retiros, alumnos, cursos).setVisible(true);
-		if (e.getSource() == mntmRepPendiente)
-			new ReportPendientes().setVisible(true);
-		if (e.getSource() == mntmRepVigente)
-			new ReportVigentes().setVisible(true);
-		if (e.getSource() == mntmRepCurso)
-			new ReportCurso().setVisible(true);
-		if (e.getSource() == mntmAyuda)
-			new Ayuda().setVisible(true);
-	}
+        mntmAyuda = new JMenuItem("Acerca de...");
+        configurarItem(mntmAyuda);
+        mnAyuda.add(mntmAyuda);
+
+        // PANEL PRINCIPAL
+        contentPane = new JPanel();
+        contentPane.setBackground(Color.WHITE);
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        // LOGO PRINCIPAL
+        lblLogoPrincipal = new JLabel("");
+        lblLogoPrincipal.setBackground(Color.WHITE);
+
+        java.net.URL logoPrincipal = MenuPrincipal.class.getResource(
+                "/imagenes/LOGO.jpg");
+
+        if (logoPrincipal != null) {
+            lblLogoPrincipal.setIcon(new ImageIcon(logoPrincipal));
+        }
+
+        lblLogoPrincipal.setBounds(48, 191, 676, 182);
+        lblLogoPrincipal.setOpaque(true);
+        contentPane.add(lblLogoPrincipal);
+
+        // LOGO DEL COLEGIO
+        lblColegio = new JLabel("");
+
+        java.net.URL logoColegio = MenuPrincipal.class.getResource(
+                "/imagenes/logo.cibertec2.png");
+
+        if (logoColegio != null) {
+            lblColegio.setIcon(new ImageIcon(logoColegio));
+        }
+
+        lblColegio.setBounds(235, 23, 247, 157);
+        contentPane.add(lblColegio);
+
+        contentPane.setComponentZOrder(lblColegio, 0);
+
+        // CARGAR DATOS ORIGINALES
+        alumnos.cargarAlumnos();
+        cursos.cargarCursos();
+        matriculas.cargarMatriculas();
+        retiros.cargarRetiros();
+    }
+
+    // ESTILO DE LOS MENÚS
+    private void configurarMenu(JMenu menu) {
+
+        menu.setForeground(Color.WHITE);
+        menu.setFont(new Font("Arial", Font.BOLD, 13));
+    }
+
+    // ESTILO DE LOS ELEMENTOS
+    private void configurarItem(JMenuItem item) {
+
+        item.setBackground(new Color(0, 128, 192));
+        item.setForeground(Color.WHITE);
+        item.setOpaque(true);
+        item.setFont(new Font("Arial", Font.PLAIN, 13));
+        item.addActionListener(this);
+    }
+
+    // EVENTOS ORIGINALES DEL PROYECTO
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == mntmAlumnos)
+            new MantAlumno(alumnos).setVisible(true);
+
+        if (e.getSource() == mntmCursos)
+            new MantCursos(cursos).setVisible(true);
+
+        if (e.getSource() == mntmMatricula)
+            new RegisMatricula(matriculas, alumnos, cursos).setVisible(true);
+
+        if (e.getSource() == mntmRetiro)
+            new RegisRetiro(retiros, matriculas, alumnos, cursos).setVisible(true);
+
+        if (e.getSource() == mntmConsAlumno)
+            new ConsAlumno(alumnos, cursos, matriculas).setVisible(true);
+
+        if (e.getSource() == mntmConsMatricula)
+            new ConsMatricula(matriculas, retiros, alumnos, cursos).setVisible(true);
+
+        if (e.getSource() == mntmRepPendiente)
+            new ReportPendientes().setVisible(true);
+
+        if (e.getSource() == mntmRepVigente)
+            new ReportVigentes().setVisible(true);
+
+        if (e.getSource() == mntmRepCurso)
+            new ReportCurso().setVisible(true);
+
+        if (e.getSource() == mntmAyuda)
+            new Ayuda().setVisible(true);
+    }
 }
