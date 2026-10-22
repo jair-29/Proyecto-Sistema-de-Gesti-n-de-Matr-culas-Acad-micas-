@@ -88,10 +88,10 @@
 		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</title>
 	<pageHeader height="62" splitType="Stretch">
-		<element kind="staticText" uuid="b61436a5-353d-4cfc-bf86-7d5f560d1128" x="2" y="10" width="550" height="30" forecolor="#FFFFFF" backcolor="#004266" mode="Opaque" fontSize="16.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="staticText" uuid="b61436a5-353d-4cfc-bf86-7d5f560d1128" x="2" y="10" width="550" height="30" forecolor="#FFFFFF" backcolor="#004266" mode="Opaque" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			<property name="com.jaspersoft.studio.unit.x" value="px"/>
-			<text><![CDATA[REPORTE DE ALUMNOS CON MATRÍCULA REGISTRADA]]></text>
+			<text><![CDATA[REPORTE DE ALUMNOS REGISTRADOS CON MATRÍCULA VIGENTE]]></text>
 		</element>
 	</pageHeader>
 	<detail>
@@ -190,7 +190,7 @@
 	</detail>
 	<pageFooter height="70" splitType="Stretch">
 		<element kind="staticText" uuid="245638f0-9e19-45f2-9508-9dd3ad4f2809" x="0" y="40" width="552" height="30" vTextAlign="Middle">
-			<text><![CDATA[Reporte de los alumnos que figuran en el sistema con matrícula registrada, listos para iniciar la cursada en la fecha indicada por el instituto. [SIGEMA]]]></text>
+			<text><![CDATA[Reporte de los alumnos que figuran en el sistema con matrícula vigente, listos para iniciar la cursada en la fecha indicada por el instituto. [SIGEMA]]]></text>
 		</element>
 	</pageFooter>
 </jasperReport>

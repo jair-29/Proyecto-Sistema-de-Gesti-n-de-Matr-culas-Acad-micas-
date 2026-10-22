@@ -88,10 +88,10 @@
 		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</title>
 	<pageHeader height="62" splitType="Stretch">
-		<element kind="staticText" uuid="b61436a5-353d-4cfc-bf86-7d5f560d1128" x="2" y="10" width="550" height="30" forecolor="#FFFFFF" backcolor="#004266" mode="Opaque" fontSize="16.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="staticText" uuid="b61436a5-353d-4cfc-bf86-7d5f560d1128" x="2" y="10" width="550" height="30" forecolor="#FFFFFF" backcolor="#004266" mode="Opaque" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			<property name="com.jaspersoft.studio.unit.x" value="px"/>
-			<text><![CDATA[REPORTE DE ALUMNOS CON MATRÍCULA PENDIENTE]]></text>
+			<text><![CDATA[REPORTE DE ALUMNOS REGISTRADOS CON MATRÍCULA PENDIENTE]]></text>
 		</element>
 	</pageHeader>
 	<detail>
